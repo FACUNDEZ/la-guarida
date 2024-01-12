@@ -24,16 +24,23 @@ function AboutUs() {
 
             <Carousel />
 
-            <div className="pb-24 mt-20 m-auto">
+            <div className="pb-16 mt-20 m-auto">
                 <h2 className="text-4xl font-bold mx-4 text-center">¿Te preocupa que la vianda no sea tu agrado?</h2>
                 <p className="text-lg mt-10 mx-4">No te preocupes, nuestro servicio te ofrecerá una comida deliciosa y de calidad, con los gustos más tradicionales de la cocina.</p>
 
                 <Image className="mt-14 m-auto" src="/images/hero-img.webp" width={450} height={450} alt="food"></Image>
 
-                <h2 className="text-4xl font-bold mt-14 mx-4 text-center">¿Tienes más preguntas sobre nuestro servicio?</h2>
+                <h2 className="text-4xl font-bold mt-16 mx-4 text-center">¿Tienes más preguntas sobre nuestro servicio?</h2>
                 <p className="text-xl mt-10 mx-4 text-center">Aquí abajo está la respuesta a tu pregunta.</p>
+                <span>
+                    <svg className="m-auto mt-16 animate-bounce" width="60" height="60" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#000000" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                        <path d="M12 5l0 14" />
+                        <path d="M18 13l-6 6" />
+                        <path d="M6 13l6 6" />
+                    </svg>
+                </span>
             </div>
-
         </section>
     )
 }
