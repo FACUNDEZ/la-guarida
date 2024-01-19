@@ -156,7 +156,7 @@ function FAQ() {
                 >
                     <summary className="flex cursor-pointer items-center justify-between ">
                         <h2 className="text-lg font-medium text-gray-900 mr-3">
-                            ¿Con cuánto tiempo de anticipación hay que reservar?
+                            ¿Con cuánto tiempo de anticipación hay que hacer los pedidos?
                         </h2>
 
                         <span className="shrink-0 rounded-full bg-black p-1.5 text-white sm:p-3">
