@@ -1,6 +1,7 @@
 import React from 'react'
 
 function FAQ() {
+    
     return (
         <section className='font-primary bg-sky-400 pt-16 pb-6 h-full'>
             <h2 className='text-5xl font-bold mx-4'>Las preguntas más recurrentes</h2>
@@ -24,7 +25,7 @@ function FAQ() {
                                 <path
                                     fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 />
                             </svg>
                         </span>
@@ -53,7 +54,7 @@ function FAQ() {
                                 <path
                                     fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 />
                             </svg>
                         </span>
@@ -82,7 +83,7 @@ function FAQ() {
                                 <path
                                     fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 />
                             </svg>
                         </span>
@@ -111,7 +112,7 @@ function FAQ() {
                                 <path
                                     fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 />
                             </svg>
                         </span>
@@ -140,7 +141,7 @@ function FAQ() {
                                 <path
                                     fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
                                 />
                             </svg>
                         </span>
@@ -169,7 +170,35 @@ function FAQ() {
                                 <path
                                     fill-rule="evenodd"
                                     d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                                    clip-rule="evenodd"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                        </span>
+                    </summary>
+
+                    <p className="mt-4 leading-relaxed text-gray-700">
+                        Todos los pedidos tienen un tiempo mínimo de 24 horas.
+                    </p>
+                </details>
+                <details
+                    className="group p-6"
+                >
+                    <summary className="flex cursor-pointer items-center justify-between ">
+                        <h2 className="text-lg font-medium text-gray-900 mr-3">
+                            ¿Donde tengo que retirar mi pedido?
+                        </h2>
+
+                        <span className="shrink-0 rounded-full bg-black p-1.5 text-white sm:p-3">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-45"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                    clipRule="evenodd"
                                 />
                             </svg>
                         </span>
@@ -184,4 +213,4 @@ function FAQ() {
     )
 }
 
-export default FAQ
+export default FAQ
