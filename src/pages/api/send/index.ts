@@ -12,7 +12,11 @@ export default async function sendEmail(req: NextApiRequest, res: NextApiRespons
     from: 'onboarding@resend.dev',
     to: ["bodegonlaguarida@hotmail.com"],
     subject: 'Pedido Realizado - La Guarida',
-    html: `<p>${datosForm.name} ha realizado un pedido</p>`
+    html: `<p>${datosForm.name} ${datosForm.lastname} ha encargado ${datosForm.quantity} viandas de ${datosForm.menu} para el día ${datosForm.date}.</p>
+    <br> Ante cualquier duda o problema acá tenés su número: ${datosForm.number}
+
+    <h2>La Guarida</h2>
+    `
   });
 
   if (error) {
