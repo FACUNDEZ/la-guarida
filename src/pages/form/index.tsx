@@ -7,13 +7,20 @@ function Form() {
   const router = useRouter()
 
   const [emailSent, setEmailSent] = useState(false)
+  const [emptyData, setEmptyData] = useState(false)
+  const [quantityWrong, setQuantityWrong] = useState(false)
+  const [emailWrong, setEmailWrong] = useState(false)
+  const [dateWrong, setDateWrong] = useState(false)
+  const [friSatWrong, setFriSatWrong] = useState(false)
+  const [menuWrong, setMenuWrong] = useState(false)
+  const [selected, setSelected] = useState(null);
 
-  const nameRef = useRef(null)
-  const lastnameRef = useRef(null)
-  const emailRef = useRef(null)
-  const numberRef = useRef(null)
-  const dateRef = useRef(null)
-  const quantityRef = useRef(null)
+  const nameRef = useRef<HTMLInputElement | null>(null)
+  const lastnameRef = useRef<HTMLInputElement | null>(null)
+  const emailRef = useRef<HTMLInputElement | null>(null)
+  const numberRef = useRef<HTMLInputElement | null>(null)
+  const dateRef = useRef<HTMLInputElement | null>(null)
+  const quantityRef = useRef<HTMLInputElement | null>(null)
 
   const apiEntre = "http://localhost:3000/api/send"
 
@@ -24,8 +31,7 @@ function Form() {
         headers: {
           "Content-Type": "application/json"
         },
-        //@ts-ignore
-        body: JSON.stringify({ name: nameRef.current?.value, lastname: lastnameRef.current?.value, number: numberRef.current?.value, date: dateRef.current?.value, quantity: quantityRef.current?.value })
+        body: JSON.stringify({ name: nameRef.current?.value, lastname: lastnameRef.current?.value, number: numberRef.current?.value, date: dateRef.current?.value, quantity: quantityRef.current?.value, menu: selected })
       })
       const data = await response.json()
       console.log(data)
@@ -40,29 +46,77 @@ function Form() {
 
     setEmailSent(false)
 
-    //@ts-ignore
-    if (!nameRef.current?.value || !lastnameRef.current?.value || !emailRef.current?.value || !numberRef.current?.value || !dateRef.current?.value || !quantityRef.current?.value) {
-      alert("Completa los datos, por favor")
+    if (!nameRef.current?.value || !lastnameRef.current?.value || !emailRef.current?.value || !numberRef.current?.value || !dateRef.current?.value || !quantityRef.current?.value || selected === null) {
+      setEmptyData(true)
+      return
+    }
+
+    const today = new Date()
+    const day = today.getDate()
+    const year = today.getFullYear()
+    const month = today.getMonth()
+
+    const dateToday = new Date(year, month, day);
+
+    const dateValue = new Date(dateRef.current?.value)
+    const dayValue = dateValue.getDate()
+    const yearValue = dateValue.getFullYear()
+    const monthValue = dateValue.getMonth()
+    const dayOfTheWeekValue = dateValue.getDay()
+
+    const dateComValue = new Date(yearValue, monthValue, dayValue)
+
+    const dateValue2 = new Date(dateRef.current?.value)
+    const getFullYear = dateValue2.getFullYear()
+
+    const monthValue2 = new Date(dateRef.current?.value)
+    const getMonth = monthValue2.getMonth()
+
+    const dayCurr = new Date();
+    const otherDay = new Date(dateRef.current?.value);
+
+    const dayVer = dayCurr.getDay()
+
+    const daysDiff = Math.floor((otherDay.getTime() - dayCurr.getTime()) / 1000 / 60 / 60 / 24);
+
+    if (dateToday >= dateComValue) {
+      setDateWrong(true)
+      return
+    }
+
+    if (dayOfTheWeekValue == 4 || dayOfTheWeekValue == 5) {
+      setFriSatWrong(true)
+      return
+    }
+
+    if (getFullYear > year || getMonth > month) {
+      setMenuWrong(true)
+      return
+    }
+
+    if ((dayVer == 0 && daysDiff > 4) || (dayVer == 1 && daysDiff > 3) || (dayVer == 2 && daysDiff > 2) || (dayVer == 3 && daysDiff > 1) || (dayVer == 4 && daysDiff >= 0) || (dayVer == 5 && daysDiff >= 0) || (dayVer == 6 && daysDiff >= 0)) {
+      setMenuWrong(true)
       return
     }
 
     //@ts-ignore
     if (quantityRef.current?.value <= 0) {
-      alert("Inserta bien la cantidad")
+      setQuantityWrong(true)
+      return
+    }
+
+    if (!emailRef.current?.value.includes("@")) {
+      setEmailWrong(true)
       return
     }
 
     let templateParams = {
-      //@ts-ignore
       to_name: nameRef.current?.value,
-      //@ts-ignore
       to_lastname: lastnameRef.current?.value,
-      //@ts-ignore
       to_email: emailRef.current?.value,
-      //@ts-ignore
       date: dateRef.current?.value,
-      //@ts-ignore
       quantity: quantityRef.current?.value,
+      menu: selected,
     };
 
     send("service_lgejyq2", "template_qgvoseq", templateParams, "ewwgdg3MgDbAQPrRw");
@@ -71,9 +125,10 @@ function Form() {
 
     setEmailSent(true);
 
-    //@ts-ignore
     nameRef.current.value = "", lastnameRef.current.value = "", emailRef.current.value = "", numberRef.current.value = "", dateRef.current.value = "", quantityRef.current.value = ""
   }
+
+  const handleClick = (e: any) => setSelected(e.target.value)
 
   return (
     <section className="bg-white font-primary">
@@ -110,7 +165,7 @@ function Form() {
             </div>
 
             {emailSent === true && (
-              <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-11">
+              <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-5">
                 <div className="flex flex-col items-center gap-2">
                   <span className="text-green-600">
                     <svg
@@ -128,11 +183,196 @@ function Form() {
                       />
                     </svg>
                   </span>
-
                   <strong className="block font-medium text-gray-900"> Pedido realizado correctamente </strong>
                 </div>
 
                 <button onClick={() => setEmailSent(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
+                  <span className="sr-only">Dismiss popup</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            {emptyData === true && (
+              <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-red-600">
+                    <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
+                      <path d="M9 8l6 8" />
+                      <path d="M15 8l-6 8" />
+                    </svg>
+                  </span>
+                  <strong className="block font-medium text-gray-900"> Complete todos los datos, por favor. </strong>
+                </div>
+
+                <button onClick={() => setEmptyData(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
+                  <span className="sr-only">Dismiss popup</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            {emailWrong === true && (
+              <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-red-600">
+                    <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
+                      <path d="M9 8l6 8" />
+                      <path d="M15 8l-6 8" />
+                    </svg>
+                  </span>
+                  <strong className="block font-medium text-gray-900"> Ingrese bien su email, por favor. </strong>
+                </div>
+
+                <button onClick={() => setEmailWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
+                  <span className="sr-only">Dismiss popup</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            {quantityWrong === true && (
+              <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-red-600">
+                    <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
+                      <path d="M9 8l6 8" />
+                      <path d="M15 8l-6 8" />
+                    </svg>
+                  </span>
+                  <strong className="block font-medium text-gray-900"> Inserte bien la cantidad del pedido, por favor. </strong>
+                </div>
+
+                <button onClick={() => setQuantityWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
+                  <span className="sr-only">Dismiss popup</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            {dateWrong === true && (
+              <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-red-600">
+                    <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
+                      <path d="M9 8l6 8" />
+                      <path d="M15 8l-6 8" />
+                    </svg>
+                  </span>
+                  <strong className="block font-medium text-gray-900"> Eliga bien el día, por favor. </strong>
+                </div>
+
+                <button onClick={() => setDateWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
+                  <span className="sr-only">Dismiss popup</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            {friSatWrong === true && (
+              <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-red-600">
+                    <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
+                      <path d="M9 8l6 8" />
+                      <path d="M15 8l-6 8" />
+                    </svg>
+                  </span>
+                  <strong className="block font-medium text-gray-900"> Los viernes y sábados no se realizan pedidos. </strong>
+                </div>
+
+                <button onClick={() => setFriSatWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
+                  <span className="sr-only">Dismiss popup</span>
+
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    className="h-6 w-6"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            )}
+
+            {menuWrong === true && (
+              <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
+                <div className="flex flex-col items-center gap-2">
+                  <span className="text-red-600">
+                    <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                      <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
+                      <path d="M9 8l6 8" />
+                      <path d="M15 8l-6 8" />
+                    </svg>
+                  </span>
+                  <strong className="block font-medium text-gray-900"> No hay un menú establecido para la fecha seleccionada. </strong>
+                </div>
+
+                <button onClick={() => setMenuWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
                   <span className="sr-only">Dismiss popup</span>
 
                   <svg
@@ -187,21 +427,21 @@ function Form() {
               </div>
 
               <div className="col-span-6 sm:col-span-3">
-                <label htmlFor="LastName" className="block text-base font-medium text-gray-700">
+                <label htmlFor="email" className="block text-base font-medium text-gray-700">
                   Correo electrónico
                 </label>
 
                 <input
                   type="email"
-                  id="LastName"
-                  name="last_name"
+                  id="email"
+                  name="email"
                   ref={emailRef}
                   className="mt-1 w-full rounded-md p-2 border-gray-200 bg-white text-base text-sky-300 shadow-sm focus:outline-none"
                 />
               </div>
 
               <div className="col-span-6 sm:col-span-3">
-                <label htmlFor="telefono" className="block text-base font-medium text-gray-700">
+                <label htmlFor="tel" className="block text-base font-medium text-gray-700">
                   Número de teléfono
                 </label>
 
@@ -215,7 +455,7 @@ function Form() {
               </div>
 
               <div className="col-span-6 sm:col-span-3">
-                <label htmlFor="telefono" className="block text-base font-medium text-gray-700">
+                <label htmlFor="date" className="block text-base font-medium text-gray-700">
                   Fecha de retiro
                 </label>
 
@@ -242,6 +482,21 @@ function Form() {
                 />
               </div>
 
+              <div className="col-span-6 content-center">
+                <h3 className="block text-base font-medium text-gray-700 mb-4">
+                  Menú del día
+                </h3>
+
+                <input onClick={handleClick} className="mr-1" type="radio" id="cbox1" value="first_checkbox" name="menu" />
+                <label className="mr-4 text-base" htmlFor="cbox1">Primer menu</label>
+
+                <input onClick={handleClick} className="mr-1" type="radio" id="cbox2" value="second_checkbox" name="menu" />
+                <label className="mr-4 text-base" htmlFor="cbox2">Segundo menu</label>
+
+                <input onClick={handleClick} className="mr-1" type="radio" id="cbox3" value="ambos-menus" name="menu" />
+                <label className="text-base" htmlFor="cbox3">Ambos menús</label>
+              </div>
+
               <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
                 <button
                   type="button"
@@ -259,5 +514,5 @@ function Form() {
   )
 }
 
-
 export default Form
+
