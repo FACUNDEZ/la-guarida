@@ -11,7 +11,7 @@ function Form() {
   const [quantityWrong, setQuantityWrong] = useState(false)
   const [emailWrong, setEmailWrong] = useState(false)
   const [dateWrong, setDateWrong] = useState(false)
-  const [friSatWrong, setFriSatWrong] = useState(false)
+  const [satSunWrong, setSatSunWrong] = useState(false)
   const [menuWrong, setMenuWrong] = useState(false)
   const [selected, setSelected] = useState(null);
 
@@ -69,9 +69,6 @@ function Form() {
     const dateValue2 = new Date(dateRef.current?.value)
     const getFullYear = dateValue2.getFullYear()
 
-    const monthValue2 = new Date(dateRef.current?.value)
-    const getMonth = monthValue2.getMonth()
-
     const dayCurr = new Date();
     const otherDay = new Date(dateRef.current?.value);
 
@@ -84,17 +81,17 @@ function Form() {
       return
     }
 
-    if (dayOfTheWeekValue == 4 || dayOfTheWeekValue == 5) {
-      setFriSatWrong(true)
+    if (dayOfTheWeekValue == 5 || dayOfTheWeekValue == 6) {
+      setSatSunWrong(true)
       return
     }
 
-    if (getFullYear > year || getMonth > month) {
+    if (getFullYear > year) {
       setMenuWrong(true)
       return
     }
 
-    if ((dayVer == 0 && daysDiff > 4) || (dayVer == 1 && daysDiff > 3) || (dayVer == 2 && daysDiff > 2) || (dayVer == 3 && daysDiff > 1) || (dayVer == 4 && daysDiff >= 0) || (dayVer == 5 && daysDiff >= 0) || (dayVer == 6 && daysDiff >= 0)) {
+    if ((dayVer == 0 && daysDiff > 5) || (dayVer == 1 && daysDiff > 4) || (dayVer == 2 && daysDiff > 3) || (dayVer == 3 && daysDiff > 2) || (dayVer == 4 && daysDiff >= 1) || (dayVer == 5 && daysDiff >= 0) || (dayVer == 6 && daysDiff >= 0)) {
       setMenuWrong(true)
       return
     }
@@ -327,7 +324,7 @@ function Form() {
               </div>
             )}
 
-            {friSatWrong === true && (
+            {satSunWrong === true && (
               <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
                 <div className="flex flex-col items-center gap-2">
                   <span className="text-red-600">
@@ -338,10 +335,10 @@ function Form() {
                       <path d="M15 8l-6 8" />
                     </svg>
                   </span>
-                  <strong className="block font-medium text-gray-900"> Los viernes y sábados no se realizan pedidos. </strong>
+                  <strong className="block font-medium text-gray-900"> Los sábados y domingos no se realizan pedidos. </strong>
                 </div>
 
-                <button onClick={() => setFriSatWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
+                <button onClick={() => setSatSunWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
                   <span className="sr-only">Dismiss popup</span>
 
                   <svg

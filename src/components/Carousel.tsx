@@ -3,7 +3,7 @@ import Image from "next/image"
 function Carousel() {
     return (
         <>
-            <h1 className="text-5xl mx-4 font-bold mt-20 text-center">Algunos de nuestro platos</h1>
+            <h1 id="foods" className="text-5xl lg:text-6xl mx-4 font-bold mt-20 lg:mt-24 text-center">Algunos de nuestro platos</h1>
 
             <div id="default-carousel" className="relative w-full mt-14 z-0" data-carousel="slide">
                 <div className="relative h-56 md:h-96 overflow-hidden rounded-lg">
