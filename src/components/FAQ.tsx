@@ -1,11 +1,11 @@
 import React from 'react'
 
 function FAQ() {
-    
+
     return (
-        <section id='questions' className='font-primary bg-sky-400 pt-16 pb-6 h-full'>
+        <section id='questions' className='font-primary bg-sky-400 pt-16 pb-6 h-full md:px-16'>
             <h2 className='text-5xl lg:text-6xl text-center font-bold mx-4'>Las preguntas más recurrentes</h2>
-            <div className="-space-y-4 mt-8 lg:mx-14">
+            <div className="-space-y-4 mt-8  lg:mx-32">
                 <details
                     className="group p-6"
                 >
@@ -63,6 +63,37 @@ function FAQ() {
                         No, se puede solicitar la cantidad de viandas que sea necesaria.
                     </p>
                 </details>
+
+                <details
+                    className="group p-6"
+                >
+                    <summary className="flex cursor-pointer items-center justify-between ">
+                        <h2 className="text-lg font-medium text-gray-900 lg:text-xl">
+                            ¿Cuáles son sus métodos de pago?
+                        </h2>
+
+                        <span className="shrink-0 rounded-full bg-black p-1.5 text-white sm:p-3">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="h-5 w-5 shrink-0 transition duration-300 group-open:-rotate-45"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                            >
+                                <path
+                                    fill-rule="evenodd"
+                                    d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                        </span>
+                    </summary>
+
+                    <p className="mt-4 leading-relaxed text-gray-700 lg:text-xl">
+                        Los métodos de pago son virtuales, a través de las aplicaciones Cuenta DNI y Mercado Pago. Los datos serán enviados una vez que realice un pedido.
+                    </p>
+                </details>
+
+                
 
                 <details
                     className="group p-6"
@@ -146,8 +177,8 @@ function FAQ() {
                         </span>
                     </summary>
 
-                    <p className="mt-4 leading-relaxed text-gray-700 lg:text-xl">
-                        Nos localizamos en la ciudad de Mar del Plata, dirección Sicilia 3186, zona sur.
+                    <p className="mt-4 leading-relaxed text-gray-700 lg:text-xl ">
+                        Nos localizamos en la zona sur de la ciudad de Mar del Plata.
                     </p>
                 </details>
 
