@@ -76,7 +76,7 @@ function Form() {
 
     const daysDiff = Math.floor((otherDay.getTime() - dayCurr.getTime()) / 1000 / 60 / 60 / 24);
 
-    if (dateToday >= dateComValue) {
+    if (dateToday > dateComValue) {
       setDateWrong(true)
       return
     }
@@ -91,7 +91,7 @@ function Form() {
       return
     }
 
-    if ((dayVer == 0 && daysDiff > 5) || (dayVer == 1 && daysDiff > 4) || (dayVer == 2 && daysDiff > 3) || (dayVer == 3 && daysDiff > 2) || (dayVer == 4 && daysDiff >= 1) || (dayVer == 5 && daysDiff >= 0) || (dayVer == 6 && daysDiff >= 0)) {
+    if ((dayVer == 0 && daysDiff > 5) || (dayVer == 1 && daysDiff > 4) || (dayVer == 2 && daysDiff > 3) || (dayVer == 3 && daysDiff > 2) || (dayVer == 4 && daysDiff > 1) || (dayVer == 5 && daysDiff >= 0) || (dayVer == 6 && daysDiff >= 0)) {
       setMenuWrong(true)
       return
     }
@@ -133,7 +133,7 @@ function Form() {
         <aside className="relative block h-16 lg:order-last lg:col-span-5 lg:h-full xl:col-span-6">
           <Image
             alt="background"
-            src="/images/hero-img.webp"
+            src="/images/image-form.webp"
             priority
             width={500}
             height={500}
@@ -153,7 +153,7 @@ function Form() {
                 Volver al Inicio
               </button>
               <Image
-                alt="background"
+                alt="logo"
                 src="/images/laguarida-logo.webp"
                 width={100}
                 height={100}
