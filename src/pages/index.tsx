@@ -3,15 +3,17 @@ import FAQ from '@/components/FAQ'
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import Menu from '@/components/Menu'
+import PruebasTabla from '@/components/PruebaTabla'
+import { MenuProvider } from '@/context/MenuContex'
 
 export default function Home() {
   return (
-    <>
+    <MenuProvider>
       <Header />
       <Hero />
       <Menu />
       <AboutUs />
       <FAQ />
-    </>
+    </MenuProvider>
   )
 }

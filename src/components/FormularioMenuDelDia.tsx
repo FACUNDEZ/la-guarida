@@ -1,13 +1,17 @@
-import React, { useContext, useRef, FormEvent } from "react";
+import React, { useContext, useRef, FormEvent, useEffect } from "react";
 import { MenuContext } from "@/context/MenuContex";
 
 export default function FormularioMenuDelDia() {
-  const lunesMenu1 = useRef<HTMLInputElement>(null);
-  const lunesMenu2 = useRef<HTMLInputElement>(null);
-  const martesMenu = useRef<HTMLInputElement>(null);
-  const miercolesMenu = useRef<HTMLInputElement>(null);
-  const juevezMenu = useRef<HTMLInputElement>(null);
-  const viernesMenu = useRef<HTMLInputElement>(null);
+  const lunesMenu1 = useRef(null);
+  const lunesMenu2 = useRef(null);
+  const martesMenu1 = useRef(null);
+  const martesMenu2 = useRef(null);
+  const miercolesMenu1 = useRef(null);
+  const miercolesMenu2 = useRef(null);
+  const juevesMenu1 = useRef(null);
+  const juevesMenu2 = useRef(null);
+  const viernesMenu1 = useRef(null);
+  const viernesMenu2 = useRef(null);
   //@ts-ignore
   const { menu, setMenu } = useContext(MenuContext);
 
@@ -16,21 +20,38 @@ export default function FormularioMenuDelDia() {
     if (lunesMenu1.current) {
       setMenu((prevMenu: any) => ({
         ...prevMenu,
-        lunes:{
-        //@ts-ignore
-        receta1: lunesMenu1.current.value,
-        //@ts-ignore
-        receta2: lunesMenu2.current.value,
+        lunes: {
+          //@ts-ignore
+          receta1: lunesMenu1.current.value,
+          //@ts-ignore
+          receta2: lunesMenu2.current.value,
         },
-        //@ts-ignore
-        martes: martesMenu.current.value,
-        //@ts-ignore
-        miercoles: miercolesMenu.current.value,
-        //@ts-ignore
-        juevez: juevezMenu.current.value,
-        //@ts-ignore
-        viernes: viernesMenu.current.value,
-      }));
+        martes: {
+          //@ts-ignore
+          receta1: martesMenu1.current.value,
+          //@ts-ignore
+          receta2: martesMenu2.current.value,
+        },
+        miercoles: {
+          //@ts-ignore
+          receta1: miercolesMenu1.current.value,
+          //@ts-ignore
+          receta2: miercolesMenu2.current.value,
+        },
+        jueves: {
+          //@ts-ignore
+          receta1: juevesMenu1.current.value,
+          //@ts-ignore
+          receta2: juevesMenu2.current.value,
+        },
+        viernes: {
+          //@ts-ignore
+          receta1: viernesMenu1.current.value,
+          //@ts-ignore
+          receta2: viernesMenu2.current.value,
+        },
+      })      
+      );
     }
   };
 
@@ -53,27 +74,55 @@ export default function FormularioMenuDelDia() {
           className="border border-solid border-black rounded-lg pl-1"
         />
         <span>Martes</span>
+        <span>Receta 1</span>
         <input
           type="text"
-          ref={martesMenu}
+          ref={martesMenu1}
+          className="border border-solid border-black rounded-lg pl-1"
+        />
+        <span>Receta 2</span>
+        <input
+          type="text"
+          ref={martesMenu2}
           className="border border-solid border-black rounded-lg pl-1"
         />
         <span>Miercoles</span>
+        <span>Receta 1</span>
         <input
           type="text"
-          ref={miercolesMenu}
+          ref={miercolesMenu1}
+          className="border border-solid border-black rounded-lg pl-1"
+        />
+        <span>Receta 2</span>
+        <input
+          type="text"
+          ref={miercolesMenu2}
           className="border border-solid border-black rounded-lg pl-1"
         />
         <span>Juevez</span>
+        <span>Receta 1</span>
         <input
           type="text"
-          ref={juevezMenu}
+          ref={juevesMenu1}
+          className="border border-solid border-black rounded-lg pl-1"
+        />
+        <span>Receta 2</span>
+        <input
+          type="text"
+          ref={juevesMenu2}
           className="border border-solid border-black rounded-lg pl-1"
         />
         <span>Viernes</span>
+        <span>Receta 1</span>
         <input
           type="text"
-          ref={viernesMenu}
+          ref={viernesMenu1}
+          className="border border-solid border-black rounded-lg pl-1"
+        />
+        <span>Receta 2</span>
+        <input
+          type="text"
+          ref={viernesMenu2}
           className="border border-solid border-black rounded-lg pl-1"
         />
         <button
@@ -84,12 +133,6 @@ export default function FormularioMenuDelDia() {
         </button>
       </form>
 
-      <p>{menu.lunes.receta1}</p>
-      <p>{menu.lunes.receta2}</p>
-      {/* <p>{menu.martes}</p>
-      <p>{menu.miercoles}</p>
-      <p>{menu.juevez}</p>
-      <p>{menu.viernes}</p> */}
     </section>
   );
 }
