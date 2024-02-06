@@ -3,7 +3,7 @@ import Link from "next/link"
 
 function Footer() {
     return (
-        <footer className="footer items-center pt-8 px-5 bg-neutral text-neutral-content bg-black text-white font-primary">
+        <footer className="footer items-center pt-8 px-5 lg:pt-5 lg:px-3 bg-neutral text-neutral-content bg-black text-white font-primary">
             <div className="md:flex md:justify-between md:mx-10 lg:mx-16">
                 <div className="flex items-center gap-1">
                     <Image src="/images/laguarida-logo.webp" width={100} height={100} alt="logo"></Image>
@@ -18,7 +18,7 @@ function Footer() {
                     </svg></Link>
                 </nav>
             </div>
-            <p className="mt-8 ml-3 pb-2 text-center text-sm md:text-base">Copyright © 2024 - Todos los derechos reservados por La Guarida.</p>
+            <p className="mt-8 lg:mt-5 ml-3 pb-2 text-center text-sm md:text-base">Copyright © 2024 - Todos los derechos reservados por La Guarida.</p>
         </footer>
     )
 }
