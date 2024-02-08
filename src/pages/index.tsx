@@ -8,12 +8,12 @@ import { MenuProvider } from '@/context/MenuContex'
 
 export default function Home() {
   return (
-    <MenuProvider>
+    <>
       <Header />
       <Hero />
       <Menu />
       <AboutUs />
       <FAQ />
-    </MenuProvider>
+    </>
   )
 }
