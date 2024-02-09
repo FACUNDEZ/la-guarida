@@ -1,4 +1,4 @@
-import { useRef, FormEvent, useState } from "react"
+import { useRef, FormEvent, useState, useEffect } from "react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { send } from "@emailjs/browser";
@@ -15,6 +15,7 @@ function Form() {
   const [satSunWrong, setSatSunWrong] = useState(false)
   const [menuWrong, setMenuWrong] = useState(false)
   const [selected, setSelected] = useState(null);
+  const [totalPrice, setTotalPrice] = useState(0)
 
   const nameRef = useRef<HTMLInputElement | null>(null)
   const lastnameRef = useRef<HTMLInputElement | null>(null)
@@ -32,7 +33,7 @@ function Form() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({ name: nameRef.current?.value, lastname: lastnameRef.current?.value, number: numberRef.current?.value, date: dateRef.current?.value, quantity: quantityRef.current?.value, menu: selected })
+        body: JSON.stringify({ name: nameRef.current?.value, lastname: lastnameRef.current?.value, number: numberRef.current?.value, date: dateRef.current?.value, quantity: quantityRef.current?.value, price: totalPrice, menu: selected })
       })
       const data = await response.json()
       console.log(data)
@@ -76,6 +77,7 @@ function Form() {
     const dayVer = dayCurr.getDay()
 
     const daysDiff = Math.floor((otherDay.getTime() - dayCurr.getTime()) / 1000 / 60 / 60 / 24);
+
 
     if (dateToday > dateComValue) {
       setDateWrong(true)
@@ -127,6 +129,16 @@ function Form() {
   }
 
   const handleClick = (e: any) => setSelected(e.target.value)
+
+  const handleQuantityChange = () => {
+    const quantity = parseInt(quantityRef.current?.value || "0", 10);
+
+    if(!isNaN(quantity)) setTotalPrice(getPriceForQuantity(quantity));
+  }
+
+  const getPriceForQuantity = (quantity : number) => {
+    return 1200 * quantity;
+  }
 
   return (
     <>
@@ -472,19 +484,19 @@ function Form() {
                     Cantidad de viandas
                   </label>
 
-                  <input
-                    type="number"
-                    id="quantity"
-                    name="quantity"
-                    ref={quantityRef}
-                    className="mt-1 w-full rounded-md p-2 border-gray-200 bg-white text-base text-sky-300 shadow-sm focus:outline-none"
-                  />
-                </div>
+                <input
+                  type="number"
+                  id="quantity"
+                  name="quantity"
+                  ref={quantityRef}
+                  className="mt-1 w-full rounded-md p-2 border-gray-200 bg-white text-base text-sky-300 shadow-sm focus:outline-none"
+                />
+              </div>
 
-                <div className="col-span-6 content-center">
-                  <h3 className="block text-base font-medium text-gray-700 mb-4">
-                    Menú del día
-                  </h3>
+              <div className="col-span-6 content-center">
+                <h3 className="block text-base font-medium text-gray-700 mb-4">
+                  Menú del día
+                </h3>
 
                   <input onClick={handleClick} className="mr-1" type="radio" id="cbox1" value="first_checkbox" name="menu" />
                   <label className="mr-4 text-base" htmlFor="cbox1">Primer menu</label>
