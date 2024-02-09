@@ -1,8 +1,9 @@
-import { useRef, FormEvent, useState, useEffect } from "react"
+import { useRef, FormEvent, useState, useEffect, useContext } from "react"
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { send } from "@emailjs/browser";
 import Footer from '@/components/Footer'
+import { MenuContext } from "@/context/MenuContex";
 
 function Form() {
   const router = useRouter()
@@ -17,6 +18,26 @@ function Form() {
   const [selected, setSelected] = useState(null);
   const [totalPrice, setTotalPrice] = useState(0)
 
+  const fecha = new Date();
+  const diaDeLaSemana = fecha.toLocaleDateString('es-ES', { weekday: 'long' });
+  console.log(diaDeLaSemana);
+
+  //@ts-ignore
+  const { menu } = useContext(MenuContext)
+
+  const today = new Date()
+  const day = today.getDate()
+  const year = today.getFullYear()
+  const month = today.getMonth()
+
+  const formatDateWithLeadingZeros = () => {
+    const dateWithLeadingZeros = day < 10 ? `0${day}` : day;
+    const monthWithLeadingZeros = month < 10 ? `0${month}` : month;
+    return `${year}-${monthWithLeadingZeros}-${dateWithLeadingZeros}`;
+  };
+
+  console.log(year, month, day)
+
   const nameRef = useRef<HTMLInputElement | null>(null)
   const lastnameRef = useRef<HTMLInputElement | null>(null)
   const emailRef = useRef<HTMLInputElement | null>(null)
@@ -25,6 +46,8 @@ function Form() {
   const quantityRef = useRef<HTMLInputElement | null>(null)
 
   const apiEntre = "http://localhost:3000/api/send"
+
+
 
   const getApiEntre = async () => {
     try {
@@ -52,11 +75,6 @@ function Form() {
       setEmptyData(true)
       return
     }
-
-    const today = new Date()
-    const day = today.getDate()
-    const year = today.getFullYear()
-    const month = today.getMonth()
 
     const dateToday = new Date(year, month, day);
 
@@ -133,10 +151,10 @@ function Form() {
   const handleQuantityChange = () => {
     const quantity = parseInt(quantityRef.current?.value || "0", 10);
 
-    if(!isNaN(quantity)) setTotalPrice(getPriceForQuantity(quantity));
+    if (!isNaN(quantity)) setTotalPrice(getPriceForQuantity(quantity));
   }
 
-  const getPriceForQuantity = (quantity : number) => {
+  const getPriceForQuantity = (quantity: number) => {
     return 1200 * quantity;
   }
 
@@ -475,6 +493,7 @@ function Form() {
                     id="date"
                     name="date"
                     ref={dateRef}
+                    min={formatDateWithLeadingZeros()}
                     className="mt-1 w-full rounded-md p-2 border-gray-200 bg-white text-base text-sky-300 shadow-sm focus:outline-none"
                   />
                 </div>
@@ -490,13 +509,14 @@ function Form() {
                     name="quantity"
                     ref={quantityRef}
                     onChange={handleQuantityChange}
+                    min={1}
                     className="mt-1 w-full rounded-md p-2 border-gray-200 bg-white text-base text-sky-300 shadow-sm focus:outline-none"
                   />
                 </div>
 
                 <div className="col-span-6 content-center">
                   <h3 className="block text-base font-medium text-gray-700 mb-4">
-                    Precio de las viandas: {totalPrice}$
+                    Precio de las viandas: ${totalPrice}
                   </h3>
                 </div>
                 <div className="col-span-6 content-center">
@@ -504,14 +524,18 @@ function Form() {
                     Menú del día
                   </h3>
 
-                  <input onClick={handleClick} className="mr-1" type="radio" id="cbox1" value="first_checkbox" name="menu" />
-                  <label className="mr-4 text-base" htmlFor="cbox1">Primer menu</label>
+                  {diaDeLaSemana && menu && menu[diaDeLaSemana.toLowerCase()] && (
+                    <div>
+                      <input onClick={handleClick} className="mr-1" type="radio" id="cbox1" value="first_checkbox" name="menu" />
+                      <label className="mr-4 text-base" htmlFor="cbox1">{menu[diaDeLaSemana.toLowerCase()].receta1}</label>
 
-                  <input onClick={handleClick} className="mr-1" type="radio" id="cbox2" value="second_checkbox" name="menu" />
-                  <label className="mr-4 text-base" htmlFor="cbox2">Segundo menu</label>
+                      <input onClick={handleClick} className="mr-1" type="radio" id="cbox2" value="second_checkbox" name="menu" />
+                      <label className="mr-4 text-base" htmlFor="cbox2">{menu[diaDeLaSemana.toLowerCase()].receta2}</label>
 
-                  <input onClick={handleClick} className="mr-1" type="radio" id="cbox3" value="ambos-menus" name="menu" />
-                  <label className="text-base" htmlFor="cbox3">Ambos menús</label>
+                      <input onClick={handleClick} className="mr-1" type="radio" id="cbox3" value="ambos-menus" name="menu" />
+                      <label className="text-base" htmlFor="cbox3">Ambos menús</label>
+                    </div>
+                  )}
                 </div>
 
                 <div className="col-span-6 sm:flex sm:items-center sm:gap-4">
