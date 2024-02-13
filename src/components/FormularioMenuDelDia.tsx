@@ -1,7 +1,10 @@
-import React, { useContext, useRef, FormEvent, useEffect } from "react";
+import React, { useContext, useRef, FormEvent } from "react";
+import { useRouter } from "next/router";
 import { MenuContext } from "@/context/MenuContex";
 
 export default function FormularioMenuDelDia() {
+    const router = useRouter()
+
     const lunesMenu1 = useRef(null);
     const lunesMenu2 = useRef(null);
     const martesMenu1 = useRef(null);
@@ -15,45 +18,50 @@ export default function FormularioMenuDelDia() {
     //@ts-ignore
     const { menu, setMenu } = useContext(MenuContext);
 
-    const handleMenuSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleMenuSubmit = (e: FormEvent) => {
         e.preventDefault();
-        setMenu((prevMenu: any) => ({
-            ...prevMenu,
+
+        setMenu({
             lunes: {
                 //@ts-ignore
-                receta1: lunesMenu1.current.value,
+                receta1: lunesMenu1.current?.value,
                 //@ts-ignore
-                receta2: lunesMenu2.current.value,
+                receta2: lunesMenu2.current?.value,
             },
             martes: {
                 //@ts-ignore
-                receta1: martesMenu1.current.value,
+                receta1: martesMenu1.current?.value,
                 //@ts-ignore
-                receta2: martesMenu2.current.value,
+                receta2: martesMenu2.current?.value,
             },
             miercoles: {
                 //@ts-ignore
-                receta1: miercolesMenu1.current.value,
+                receta1: miercolesMenu1.current?.value,
                 //@ts-ignore
-                receta2: miercolesMenu2.current.value,
+                receta2: miercolesMenu2.current?.value,
             },
             jueves: {
                 //@ts-ignore
-                receta1: juevesMenu1.current.value,
+                receta1: juevesMenu1.current?.value,
                 //@ts-ignore
-                receta2: juevesMenu2.current.value,
+                receta2: juevesMenu2.current?.value,
             },
             viernes: {
                 //@ts-ignore
-                receta1: viernesMenu1.current.value,
+                receta1: viernesMenu1.current?.value,
                 //@ts-ignore
-                receta2: viernesMenu2.current.value,
+                receta2: viernesMenu2.current?.value,
             },
-        }
-        )
-        );
+        })
+        //@ts-ignore
+        lunesMenu1.current.value = "", lunesMenu2.current.value = "", martesMenu1.current.value = "", martesMenu2.current.value = "", miercolesMenu1.current.value = "", miercolesMenu2.current.value = "", juevesMenu1.current.value = "", juevesMenu2.current.value = "", viernesMenu1.current.value = "", viernesMenu2.current.value = ""
     };
+
     return (
+        <>
+        <button onClick={() => router.push("/")}>
+            Volver al inicio
+        </button>
         <section className="h-screen w-screen flex flex-col justify-center items-center">
             <h2>Menu de la semana</h2>
 
@@ -109,7 +117,7 @@ export default function FormularioMenuDelDia() {
                     type="text"
                     ref={juevesMenu2}
                     className="border border-solid border-black rounded-lg pl-1"
-                    />
+                />
                 <span>Viernes</span>
                 <span>Receta 1</span>
                 <input
@@ -130,7 +138,7 @@ export default function FormularioMenuDelDia() {
                     Subir menu
                 </button>
             </form>
-
         </section>
+        </>
     );
 }

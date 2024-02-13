@@ -1,5 +1,9 @@
+import { useContext } from "react"
+import { MenuContext } from "@/context/MenuContex"
 
 function Menu() {
+    const { menu }: any = useContext(MenuContext)
+
     return (
         <section id="menu" className="font-primary h-full flex flex-col -mt-4 lg:-mt-10  lg:mx-32">
             <h2 className="text-5xl lg:text-6xl text-center font-bold mb-12">Menú semanal</h2>
@@ -25,10 +29,10 @@ function Menu() {
                                 Lunes
                             </th>
                             <td className="px-6 py-4">
-                                Milanesas
+                            {menu.lunes.receta1}
                             </td>
                             <td className="px-6 py-4">
-                                Canelones
+                            {menu.lunes.receta2}
                             </td>
 
                         </tr>
@@ -37,10 +41,10 @@ function Menu() {
                                 Martes
                             </th>
                             <td className="px-6 py-4">
-                                Pollo relleno
+                            {menu.martes.receta1}
                             </td>
                             <td className="px-6 py-4">
-                                Pastel de papa
+                            {menu.martes.receta2}
                             </td>
 
                         </tr>
@@ -49,10 +53,10 @@ function Menu() {
                                 Miércoles
                             </th>
                             <td className="px-6 py-4">
-                                Fideos
+                            {menu.miercoles.receta1}
                             </td>
                             <td className="px-6 py-4">
-                                Chuletas de cerdo
+                            {menu.miercoles.receta2}
                             </td>
 
                         </tr>
@@ -61,10 +65,10 @@ function Menu() {
                                 Jueves
                             </th>
                             <td className="px-6 py-4">
-                                Pollo con papas fritas
+                            {menu.jueves.receta1}
                             </td>
                             <td className="px-6 py-4">
-                                Milanesas Napolitanas
+                            {menu.jueves.receta2}
                             </td>
                         </tr>
                         <tr className="bg-sky-400 border-b border-sky-500">
@@ -72,10 +76,10 @@ function Menu() {
                                 Viernes
                             </th>
                             <td className="px-6 py-4">
-                                Pan de carne
+                            {menu.viernes.receta1}
                             </td>
                             <td className="px-6 py-4">
-                                Sorrentinos
+                            {menu.viernes.receta2}
                             </td>
                         </tr>
 

@@ -2,24 +2,24 @@ import { createContext, useState } from "react";
 
 let diasDeLaSemana = {
     lunes: {
-        receta1: "Pizza",
-        receta2: "Chorizo"
+        receta1: "",
+        receta2: ""
     },
     martes:{
-        receta1: "Pollo",
-        receta2: "Pescado"
+        receta1: "",
+        receta2: ""
     },
     miercoles:{
-        receta1: "Sushi",
-        receta2: "Arepa"
+        receta1: "",
+        receta2: ""
     },
     jueves: {
-        receta1: "Huevos",
-        receta2: "Papas fritas"
+        receta1: "",
+        receta2: ""
     },
     viernes: {
-        receta1: "Hola",
-        receta2: "Puto el que lo lea"
+        receta1: "",
+        receta2: ""
     }
 }
 

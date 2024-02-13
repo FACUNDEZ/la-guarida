@@ -117,6 +117,7 @@ function Form() {
       date: dateRef.current?.value,
       quantity: quantityRef.current?.value,
       menu: selected,
+      price: totalPrice
     };
 
     send("service_lgejyq2", "template_qgvoseq", templateParams, "ewwgdg3MgDbAQPrRw");
@@ -125,7 +126,7 @@ function Form() {
 
     setEmailSent(true);
 
-    nameRef.current.value = "", lastnameRef.current.value = "", emailRef.current.value = "", numberRef.current.value = "", dateRef.current.value = "", quantityRef.current.value = ""
+    nameRef.current.value = "", lastnameRef.current.value = "", emailRef.current.value = "", numberRef.current.value = "", dateRef.current.value = "", quantityRef.current.value = "", setTotalPrice(0)
   }
 
   const handleClick = (e: any) => setSelected(e.target.value)
@@ -137,7 +138,7 @@ function Form() {
   }
 
   const getPriceForQuantity = (quantity : number) => {
-    return 1200 * quantity;
+    return 2000 * quantity;
   }
 
   return (
@@ -484,24 +485,31 @@ function Form() {
                     Cantidad de viandas
                   </label>
 
-                <input
-                  type="number"
-                  id="quantity"
-                  name="quantity"
-                  ref={quantityRef}
-                  className="mt-1 w-full rounded-md p-2 border-gray-200 bg-white text-base text-sky-300 shadow-sm focus:outline-none"
-                />
-              </div>
+                  <input
+                    type="number"
+                    id="quantity"
+                    name="quantity"
+                    min={0}
+                    ref={quantityRef}
+                    onChange={handleQuantityChange}
+                    className="mt-1 w-full rounded-md p-2 border-gray-200 bg-white text-base text-sky-300 shadow-sm focus:outline-none"
+                  />
+                </div>
 
-              <div className="col-span-6 content-center">
-                <h3 className="block text-base font-medium text-gray-700 mb-4">
-                  Menú del día
-                </h3>
+                <div className="col-span-6 content-center">
+                  <h3 className="block text-base font-medium text-gray-700 mb-4">
+                    Precio de las viandas: ${totalPrice}
+                  </h3>
+                </div>
+                <div className="col-span-6 content-center">
+                  <h3 className="block text-base font-medium text-gray-700 mb-4">
+                    Menú del día
+                  </h3>
 
-                  <input onClick={handleClick} className="mr-1" type="radio" id="cbox1" value="first_checkbox" name="menu" />
+                  <input onClick={handleClick} className="mr-1" type="radio" id="cbox1" value="primer menu" name="menu" />
                   <label className="mr-4 text-base" htmlFor="cbox1">Primer menu</label>
 
-                  <input onClick={handleClick} className="mr-1" type="radio" id="cbox2" value="second_checkbox" name="menu" />
+                  <input onClick={handleClick} className="mr-1" type="radio" id="cbox2" value="segundo menu" name="menu" />
                   <label className="mr-4 text-base" htmlFor="cbox2">Segundo menu</label>
 
                   <input onClick={handleClick} className="mr-1" type="radio" id="cbox3" value="ambos-menus" name="menu" />
