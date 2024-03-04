@@ -138,7 +138,7 @@ function Form() {
   }
 
   const getPriceForQuantity = (quantity : number) => {
-    return 2000 * quantity;
+    return 2500 * quantity;
   }
 
   return (

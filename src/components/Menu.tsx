@@ -25,7 +25,7 @@ function Menu() {
                     </thead>
                     <tbody>
                         <tr className="bg-sky-400 border-b border-sky-500">
-                            <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
+                            <th scope="row" className="px-6 py-4 font-bold whitespace-nowrap">
                                 Lunes
                             </th>
                             <td className="px-6 py-4">
@@ -37,7 +37,7 @@ function Menu() {
 
                         </tr>
                         <tr className="bg-sky-500 border-b border-sky-400">
-                            <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
+                            <th scope="row" className="px-6 py-4 font-bold whitespace-nowrap">
                                 Martes
                             </th>
                             <td className="px-6 py-4">
@@ -49,7 +49,7 @@ function Menu() {
 
                         </tr>
                         <tr className="bg-sky-400 border-b border-sky-500">
-                            <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
+                            <th scope="row" className="px-6 py-4 font-bold whitespace-nowrap">
                                 Miércoles
                             </th>
                             <td className="px-6 py-4">
@@ -61,7 +61,7 @@ function Menu() {
 
                         </tr>
                         <tr className="bg-sky-500 border-b border-sky-400">
-                            <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
+                            <th scope="row" className="px-6 py-4 font-bold whitespace-nowrap">
                                 Jueves
                             </th>
                             <td className="px-6 py-4">
@@ -72,7 +72,7 @@ function Menu() {
                             </td>
                         </tr>
                         <tr className="bg-sky-400 border-b border-sky-500">
-                            <th scope="row" className="px-6 py-4 font-medium whitespace-nowrap">
+                            <th scope="row" className="px-6 py-4 whitespace-nowrap font-bold">
                                 Viernes
                             </th>
                             <td className="px-6 py-4">

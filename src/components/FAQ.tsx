@@ -120,7 +120,7 @@ function FAQ() {
                     </summary>
 
                     <p className="mt-4 leading-relaxed text-gray-700 lg:text-xl">
-                        Cada vianda tiene un precio de $2000.
+                        Cada vianda tiene un precio de $2500.
                     </p>
                 </details>
 
