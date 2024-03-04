@@ -12,11 +12,11 @@ function AboutUs() {
             </div>
             <div className="mx-12 lg:mx-16">
                 <div className="bg-black p-4 mt-10 rounded-lg">
-                    <div className="mt-12 lg:mt-14 m-auto sm:mt-5">
+                    <div className="mt-8 lg:mt-10 m-auto sm:mt-5">
                         <Image src="/images/image-about-us1.webp" className="sm:w-full rounded-lg" alt="food" width={450} height={450}></Image>
                     </div>
                     <div className="text-white mt-14 pb-7">
-                        <h2 className="text-5xl lg:text-6xl font-bold mx-4 sm:">Preparadas con dedicación y listas para su entrega</h2>
+                        <h2 className="text-5xl lg:text-6xl font-bold ml-4 mr-7">Preparadas con dedicación y listas para su entrega</h2>
                         <p className="text-lg lg:text-xl mt-7 mx-4">Los pedidos se tienen que pedir con 24hs de anticipación.</p>
                         <button onClick={() => router.push("/form")} className="flex text-lg lg:text-xl mt-7 mx-4 gap-1 hover:translate-x-5 duration-100">Haz tu pedido <svg width="25" height="25" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
