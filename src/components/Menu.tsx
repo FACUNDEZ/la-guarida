@@ -29,10 +29,10 @@ function Menu() {
                                 Lunes
                             </th>
                             <td className="px-6 py-4">
-                            {menu.lunes.receta1}
+                            Pastel de papa
                             </td>
                             <td className="px-6 py-4">
-                            {menu.lunes.receta2}
+                            Milanesa Napolitana
                             </td>
 
                         </tr>
@@ -41,10 +41,10 @@ function Menu() {
                                 Martes
                             </th>
                             <td className="px-6 py-4">
-                            {menu.martes.receta1}
+                            Canelones
                             </td>
                             <td className="px-6 py-4">
-                            {menu.martes.receta2}
+                            Pollo con verduras
                             </td>
 
                         </tr>
@@ -53,10 +53,10 @@ function Menu() {
                                 Miércoles
                             </th>
                             <td className="px-6 py-4">
-                            {menu.miercoles.receta1}
+                            Pollo con papas fritas
                             </td>
                             <td className="px-6 py-4">
-                            {menu.miercoles.receta2}
+                            Pan de carne
                             </td>
 
                         </tr>
@@ -65,10 +65,10 @@ function Menu() {
                                 Jueves
                             </th>
                             <td className="px-6 py-4">
-                            {menu.jueves.receta1}
+                            Fideos con bolognesa
                             </td>
                             <td className="px-6 py-4">
-                            {menu.jueves.receta2}
+                            Pollo Relleno
                             </td>
                         </tr>
                         <tr className="bg-sky-400 border-b border-sky-500">
@@ -76,10 +76,10 @@ function Menu() {
                                 Viernes
                             </th>
                             <td className="px-6 py-4">
-                            {menu.viernes.receta1}
+                            Chuletas de cerdo
                             </td>
                             <td className="px-6 py-4">
-                            {menu.viernes.receta2}
+                            Guiso de lentejas
                             </td>
                         </tr>
 
