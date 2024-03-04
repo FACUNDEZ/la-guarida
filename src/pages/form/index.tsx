@@ -24,7 +24,7 @@ function Form() {
   const dateRef = useRef<HTMLInputElement | null>(null)
   const quantityRef = useRef<HTMLInputElement | null>(null)
 
-  const apiEntre = "http://localhost:3000/api/send"
+  const apiEntre = "https://la-guarida.vercel.app/api/send"
 
   const getApiEntre = async () => {
     try {
