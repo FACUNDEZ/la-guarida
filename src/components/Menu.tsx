@@ -29,10 +29,10 @@ function Menu() {
                                 Lunes
                             </th>
                             <td className="px-6 py-4">
-                            Pastel de papa
+                            Pollo al verdeo con papas al horno
                             </td>
                             <td className="px-6 py-4">
-                            Milanesa Napolitana
+                            Tallarines caseros al huevo o verdes (a elección), con salsa bolognesa
                             </td>
 
                         </tr>
@@ -41,10 +41,10 @@ function Menu() {
                                 Martes
                             </th>
                             <td className="px-6 py-4">
-                            Canelones
+                            Pastel de papas
                             </td>
                             <td className="px-6 py-4">
-                            Pollo con verduras
+                            Zapallitos rellenos (arroz y carne picada), con ensalada de lentejas y huevo
                             </td>
 
                         </tr>
@@ -53,10 +53,10 @@ function Menu() {
                                 Miércoles
                             </th>
                             <td className="px-6 py-4">
-                            Pollo con papas fritas
+                            Guiso de lentejas
                             </td>
                             <td className="px-6 py-4">
-                            Pan de carne
+                            Wok de verduras y pollo, acompañado de arroz
                             </td>
 
                         </tr>
@@ -65,10 +65,10 @@ function Menu() {
                                 Jueves
                             </th>
                             <td className="px-6 py-4">
-                            Fideos con bolognesa
+                            Milanesas de cerdo a la napolitana con porción de tortilla
                             </td>
                             <td className="px-6 py-4">
-                            Pollo Relleno
+                            Sorrentinos de jamón y queso
                             </td>
                         </tr>
                         <tr className="bg-sky-400 border-b border-sky-500">
@@ -76,10 +76,10 @@ function Menu() {
                                 Viernes
                             </th>
                             <td className="px-6 py-4">
-                            Chuletas de cerdo
+                            Albóndigas con arroz o puré (a elección)
                             </td>
                             <td className="px-6 py-4">
-                            Guiso de lentejas
+                            Pollo al horno con puré mixto
                             </td>
                         </tr>
 
