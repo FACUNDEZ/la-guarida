@@ -1,4 +1,5 @@
-import { useRef, FormEvent, useState, useEffect } from "react"
+import { useRef, FormEvent, useState } from "react"
+import { AlertCorrect, ErrorAlert } from "@/components/alerts/AlertsForm";
 import Image from "next/image"
 import { useRouter } from "next/router"
 import { send } from "@emailjs/browser";
@@ -134,10 +135,10 @@ function Form() {
   const handleQuantityChange = () => {
     const quantity = parseInt(quantityRef.current?.value || "0", 10);
 
-    if(!isNaN(quantity)) setTotalPrice(getPriceForQuantity(quantity));
+    if (!isNaN(quantity)) setTotalPrice(getPriceForQuantity(quantity));
   }
 
-  const getPriceForQuantity = (quantity : number) => {
+  const getPriceForQuantity = (quantity: number) => {
     return 2500 * quantity;
   }
 
@@ -176,230 +177,19 @@ function Form() {
                 />
               </div>
 
-              {emailSent === true && (
-                <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-5">
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-green-600">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke-width="1.5"
-                        stroke="currentColor"
-                        className="h-10 w-10"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg>
-                    </span>
-                    <strong className="block font-medium text-gray-900"> Pedido realizado correctamente </strong>
-                  </div>
+              {emailSent === true && (<AlertCorrect state={false} setState={setEmailSent} />)}
 
-                  <button onClick={() => setEmailSent(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
-                    <span className="sr-only">Dismiss popup</span>
+              {emptyData === true && (<ErrorAlert title="Complete todos los datos, por favor." state={false} setState={setEmptyData} />)}
 
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="h-6 w-6"
-                    >
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              )}
+              {emailWrong === true && (<ErrorAlert title="Ingrese bien su email, por favor." state={false} setState={setEmailWrong} />)}
 
-              {emptyData === true && (
-                <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-red-600">
-                      <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
-                        <path d="M9 8l6 8" />
-                        <path d="M15 8l-6 8" />
-                      </svg>
-                    </span>
-                    <strong className="block font-medium text-gray-900"> Complete todos los datos, por favor. </strong>
-                  </div>
+              {quantityWrong === true && (<ErrorAlert title="Inserte bien la cantidad del pedido, por favor." state={false} setState={setQuantityWrong} /> )}
 
-                  <button onClick={() => setEmptyData(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
-                    <span className="sr-only">Dismiss popup</span>
+              {dateWrong === true && (<ErrorAlert title="Eliga bien el día, por favor." state={false} setState={setDateWrong} />)}
 
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="h-6 w-6"
-                    >
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              )}
+              {satSunWrong === true && (<ErrorAlert title="Los sábados y domingos no se realizan pedidos." state={false} setState={setSatSunWrong} />)}
 
-              {emailWrong === true && (
-                <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-red-600">
-                      <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
-                        <path d="M9 8l6 8" />
-                        <path d="M15 8l-6 8" />
-                      </svg>
-                    </span>
-                    <strong className="block font-medium text-gray-900"> Ingrese bien su email, por favor. </strong>
-                  </div>
-
-                  <button onClick={() => setEmailWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
-                    <span className="sr-only">Dismiss popup</span>
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="h-6 w-6"
-                    >
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              )}
-
-              {quantityWrong === true && (
-                <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-red-600">
-                      <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
-                        <path d="M9 8l6 8" />
-                        <path d="M15 8l-6 8" />
-                      </svg>
-                    </span>
-                    <strong className="block font-medium text-gray-900"> Inserte bien la cantidad del pedido, por favor. </strong>
-                  </div>
-
-                  <button onClick={() => setQuantityWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
-                    <span className="sr-only">Dismiss popup</span>
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="h-6 w-6"
-                    >
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              )}
-
-              {dateWrong === true && (
-                <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-red-600">
-                      <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
-                        <path d="M9 8l6 8" />
-                        <path d="M15 8l-6 8" />
-                      </svg>
-                    </span>
-                    <strong className="block font-medium text-gray-900"> Eliga bien el día, por favor. </strong>
-                  </div>
-
-                  <button onClick={() => setDateWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
-                    <span className="sr-only">Dismiss popup</span>
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="h-6 w-6"
-                    >
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              )}
-
-              {satSunWrong === true && (
-                <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-red-600">
-                      <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
-                        <path d="M9 8l6 8" />
-                        <path d="M15 8l-6 8" />
-                      </svg>
-                    </span>
-                    <strong className="block font-medium text-gray-900"> Los sábados y domingos no se realizan pedidos. </strong>
-                  </div>
-
-                  <button onClick={() => setSatSunWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
-                    <span className="sr-only">Dismiss popup</span>
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="h-6 w-6"
-                    >
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              )}
-
-              {menuWrong === true && (
-                <div role="alert" className="relative rounded-xl border border-gray-100 bg-white p-4 mt-5 mb-9">
-                  <div className="flex flex-col items-center gap-2">
-                    <span className="text-red-600">
-                      <svg width="40" height="40" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                        <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                        <path d="M12 21a9 9 0 0 0 9 -9a9 9 0 0 0 -9 -9a9 9 0 0 0 -9 9a9 9 0 0 0 9 9z" />
-                        <path d="M9 8l6 8" />
-                        <path d="M15 8l-6 8" />
-                      </svg>
-                    </span>
-                    <strong className="block font-medium text-gray-900"> No hay un menú establecido para la fecha seleccionada. </strong>
-                  </div>
-
-                  <button onClick={() => setMenuWrong(false)} className="absolute top-4 right-4 text-gray-500 transition hover:text-gray-600">
-                    <span className="sr-only">Dismiss popup</span>
-
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      className="h-6 w-6"
-                    >
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
-              )}
+              {menuWrong === true && (<ErrorAlert title="No hay un menú establecido para la fecha seleccionada." state={false} setState={setMenuWrong} />)}
 
               <h1 className="mt-5 text-5xl font-bold text-gray-900 ">
                 Haz tu pedido
